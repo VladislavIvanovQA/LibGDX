@@ -50,7 +50,14 @@ public class MenuScreen extends BaseScreen {
     }
 
     @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        Gdx.graphics.setTitle("Cords - x: " + screenX + " , y: " + screenY);
+        return super.mouseMoved(screenX, screenY);
+    }
+
+    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println("Touch down in x: " + screenX + " ,y: " + screenY);
         touch.set(screenX, Gdx.graphics.getHeight() - screenY);
         v.set(touch.cpy().sub(pos)).setLength(V_LEN);
         return false;
