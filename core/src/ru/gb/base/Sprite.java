@@ -6,6 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.math.Rect;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+
 public class Sprite extends Rect {
 
     protected float angle;
@@ -56,6 +61,14 @@ public class Sprite extends Rect {
     }
 
     public boolean touchUp(Vector2 touch, int pointer, int button) {
+        return false;
+    }
+
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    public boolean keyUp(int keycode) {
         return false;
     }
 
