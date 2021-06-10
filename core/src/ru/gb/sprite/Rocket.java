@@ -14,19 +14,18 @@ public class Rocket extends Sprite {
     private final static float PADDING = 0.03f;
 
     private final Vector2 direction = new Vector2();
-    private Rect worldBounds;
-
     private final TextureRegion normalRocket;
     private final TextureRegion damagedRocket;
+    private Rect worldBounds;
 
     public Rocket(TextureAtlas atlas) {
         super(new TextureRegion());
 
         TextureAtlas.AtlasRegion a = atlas.findRegion("main_ship");
         normalRocket = new TextureRegion(a, 0, 0,
-                a.getRegionWidth()/2, a.getRegionHeight());
-        damagedRocket = new TextureRegion(a, a.getRegionWidth()/2, 0,
-                a.getRegionWidth()/2, a.getRegionHeight());
+                a.getRegionWidth() / 2, a.getRegionHeight());
+        damagedRocket = new TextureRegion(a, a.getRegionWidth() / 2, 0,
+                a.getRegionWidth() / 2, a.getRegionHeight());
 
         regions[0] = normalRocket;
     }

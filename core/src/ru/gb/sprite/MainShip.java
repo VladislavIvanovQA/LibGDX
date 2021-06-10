@@ -13,21 +13,20 @@ public class MainShip extends Sprite {
     private static final float HEIGHT = 0.15f;
     private static final float PADDING = 0.05f;
     private static final int INVALID_POINTER = -1;
-
+    private final static float SHOOT_DELAY_MS = 0.2f;
     private final Vector2 v0 = new Vector2(0.5f, 0);
     private final Vector2 v = new Vector2();
-
+    private final BulletPool bulletPool;
+    private final TextureRegion bulletRegion;
+    private final Vector2 bulletV;
+    private final Vector2 bulletPos;
     private boolean pressedLeft;
     private boolean pressedRight;
-
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
-
     private Rect worldBounds;
-    private BulletPool bulletPool;
-    private TextureRegion bulletRegion;
-    private Vector2 bulletV;
-    private Vector2 bulletPos;
+    private boolean autoShoot = false;
+    private float shootTimer;
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
@@ -46,6 +45,14 @@ public class MainShip extends Sprite {
 
     @Override
     public void update(float delta) {
+        if (autoShoot) {
+            shootTimer += delta;
+            if (shootTimer >= SHOOT_DELAY_MS) {
+                shoot();
+                shootTimer = 0;
+            }
+        }
+
         pos.mulAdd(v, delta);
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
@@ -55,16 +62,12 @@ public class MainShip extends Sprite {
             setLeft(worldBounds.getLeft());
             stop();
         }
-//        if (getLeft() > worldBounds.getRight()) {
-//            setRight(worldBounds.getLeft());
-//        }
-//        if (getRight() < worldBounds.getLeft()) {
-//            setLeft(worldBounds.getRight());
-//        }
     }
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
+        autoShoot = true;
+
         if (touch.x < worldBounds.pos.x) {
             if (leftPointer != INVALID_POINTER) {
                 return false;
@@ -114,6 +117,7 @@ public class MainShip extends Sprite {
                 moveRight();
                 break;
             case Input.Keys.UP:
+                autoShoot = false;
                 shoot();
                 break;
         }

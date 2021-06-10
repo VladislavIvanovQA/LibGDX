@@ -3,13 +3,7 @@ package ru.gb.base;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-
 import ru.gb.math.Rect;
-
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import ru.gb.utils.Regions;
 
 public class Sprite extends Rect {
@@ -32,8 +26,13 @@ public class Sprite extends Rect {
         regions = Regions.split(region, rows, cols, frames);
     }
 
+    public void dispose() {
+
+    }
+
     /**
      * Установка размера изображения по высоте
+     *
      * @param height высота
      */
     public void setHeightProportion(float height) {
@@ -44,6 +43,7 @@ public class Sprite extends Rect {
 
     /**
      * Логика спрайта
+     *
      * @param delta отрезок времени
      */
     public void update(float delta) {
