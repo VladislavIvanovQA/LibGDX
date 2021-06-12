@@ -9,11 +9,11 @@ import ru.gb.math.Rect;
 
 public class Bullet extends Sprite {
 
-    private final Sound shootSound;
     private Rect worldBounds;
-    private final Vector2 v;
+    private Vector2 v;
     private int damage;
     private Sprite owner;
+    private final Sound shootSound;
 
     public Bullet() {
         regions = new TextureRegion[1];
@@ -55,11 +55,5 @@ public class Bullet extends Sprite {
 
     public Sprite getOwner() {
         return owner;
-    }
-
-    @Override
-    public void dispose() {
-        shootSound.dispose();
-        super.dispose();
     }
 }

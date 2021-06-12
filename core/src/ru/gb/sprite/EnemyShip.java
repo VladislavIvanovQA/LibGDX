@@ -1,47 +1,61 @@
 package ru.gb.sprite;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import ru.gb.base.Ship;
 import ru.gb.base.Sprite;
 import ru.gb.math.Rect;
+import ru.gb.pool.BulletPool;
 import ru.gb.utils.Regions;
 
-public class EnemyShip extends Sprite {
+public class EnemyShip extends Ship {
 
-    private final Vector2 v = new Vector2(0f, -0.5f);
-    private final TextureAtlas atlas;
-    private int damage;
-    private Rect worldBounds;
-
-    public EnemyShip(TextureAtlas atlas) {
-        this.atlas = atlas;
-    }
-
-    public void set(
-            String atlasRegion,
-            Vector2 pos0,
-            Vector2 v0,
-            Rect worldBounds,
-            int damage,
-            float height
-    ) {
-        this.regions = Regions.split(atlas.findRegion(atlasRegion), 1, 2, 2);
-        this.pos.set(pos0);
-        this.v.set(v0);
+    public EnemyShip(Rect worldBounds, BulletPool bulletPool, Sound bulletSound) {
         this.worldBounds = worldBounds;
-        this.damage = damage;
-        setHeightProportion(height);
+        this.bulletPool = bulletPool;
+        this.bulletSound = bulletSound;
+        v0 = new Vector2();
+        v = new Vector2();
+        this.bulletV = new Vector2();
+        this.bulletPos = new Vector2();
     }
 
     @Override
     public void update(float delta) {
-        pos.mulAdd(v, delta);
-        if (isOutside(worldBounds)) {
+        super.update(delta);
+        bulletPos.set(pos.x, pos.y - getHalfHeight());
+        if (getTop() < worldBounds.getTop()) {
+            v.set(v0);
+        } else {
+            reloadTimer = reloadInterval * 0.8f;
+        }
+        if (worldBounds.isOutside(this)) {
             destroy();
         }
     }
 
-    public int getDamage() {
-        return damage;
+    public void set(
+            TextureRegion[] regions,
+            Vector2 v0,
+            TextureRegion bulletRegion,
+            float bulletHeight,
+            float bulletVY,
+            int damage,
+            float reloadInterval,
+            float height,
+            int hp
+    ) {
+        this.regions = regions;
+        this.v0.set(v0);
+        this.bulletRegion = bulletRegion;
+        this.bulletHeight = bulletHeight;
+        this.bulletV.set(0, bulletVY);
+        this.damage = damage;
+        this.reloadInterval= reloadInterval;
+        setHeightProportion(height);
+        this.hp = hp;
+        v.set(0, -0.3f);
     }
 }
