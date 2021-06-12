@@ -12,6 +12,13 @@ public abstract class SpritesPool<T extends Sprite> {
 
     protected abstract T newObject();
 
+    public void startNewGame() {
+        for (T activeObject : activeObjects) {
+            activeObject.destroyed = true;
+        }
+        freeAllDestroyed();
+    }
+
     public T obtain() {
         T object;
         if (freeObjects.isEmpty()) {
