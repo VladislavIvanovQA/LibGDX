@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
-
 import ru.gb.base.BaseScreen;
 import ru.gb.math.Rect;
 import ru.gb.sprite.Background;
