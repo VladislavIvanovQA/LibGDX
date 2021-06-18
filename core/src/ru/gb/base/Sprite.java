@@ -26,13 +26,8 @@ public class Sprite extends Rect {
         regions = Regions.split(region, rows, cols, frames);
     }
 
-    public void dispose() {
-
-    }
-
     /**
      * Установка размера изображения по высоте
-     *
      * @param height высота
      */
     public void setHeightProportion(float height) {
@@ -43,7 +38,6 @@ public class Sprite extends Rect {
 
     /**
      * Логика спрайта
-     *
      * @param delta отрезок времени
      */
     public void update(float delta) {
@@ -70,14 +64,6 @@ public class Sprite extends Rect {
     }
 
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        return false;
-    }
-
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    public boolean keyUp(int keycode) {
         return false;
     }
 
@@ -108,5 +94,4 @@ public class Sprite extends Rect {
     public void flushDestroy() {
         destroyed = false;
     }
-
 }
