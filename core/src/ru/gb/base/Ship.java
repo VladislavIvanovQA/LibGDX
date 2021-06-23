@@ -63,6 +63,16 @@ public class Ship extends Sprite {
         damageAnimateTimer = 0f;
     }
 
+    public void restore(int addedHp) {
+        int maxHp = 100;
+        if (hp + addedHp > maxHp) {
+            int temp = (hp + addedHp) - maxHp;
+            hp = (hp + addedHp) - temp;
+        } else {
+            hp += addedHp;
+        }
+    }
+
     @Override
     public void destroy() {
         super.destroy();
@@ -71,6 +81,18 @@ public class Ship extends Sprite {
 
     public int getDamage() {
         return damage;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public Vector2 getV() {
+        return v;
+    }
+
+    public void setBulletPos(Vector2 bulletPos) {
+        this.bulletPos.set(bulletPos);
     }
 
     private void shoot() {
